@@ -9,7 +9,8 @@
     "migrate-undo": "sequelize db:migrate:undo:all",
     "migrate-db": "sequelize db:migrate",
     "migrate": "npm run migrate-undo && npm run migrate-db && npm run seed",
-    "test": "npm test"
+    "test": "export NODE_ENV=test || set NODE_ENV=test && nyc --reporter=html --reporter=text mocha server/tests/ --exit --require babel-core/register",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "repository": {
     "type": "git",
