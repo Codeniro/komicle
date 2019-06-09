@@ -5,6 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon server/app.js --exec babel-node",
+    "generate-model": "sequelize model:create --name Like --attributes like:boolean,episodeId:integer,userId:integer",
+    "migrate-undo": "sequelize db:migrate:undo:all",
+    "migrate-db": "sequelize db:migrate",
+    "migrate": "npm run migrate-undo && npm run migrate-db && npm run seed",
     "test": "npm test"
   },
   "repository": {
@@ -36,8 +40,11 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
     "faker": "^4.1.0",
     "mocha": "^6.1.4",
     "mocha-lcov-reporter": "^1.3.0",
