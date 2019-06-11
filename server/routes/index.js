@@ -1,6 +1,6 @@
 import express from 'express';
 import UserController from '../controllers/UserController';
-import { validateRegister } from '../middlewares/validation';
+import { validateRegister, validateLogin } from '../middlewares/validation';
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/register', validateRegister, UserController.register);
+router.post('/login', validateLogin, UserController.login);
 
 
 router.all('*', (req, res) => {

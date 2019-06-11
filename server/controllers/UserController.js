@@ -1,6 +1,6 @@
 /* eslint-disable no-unneeded-ternary */
 import jwt from 'jsonwebtoken';
-import { hashPassword } from '../helpers/encrypt';
+import { hashPassword, verifyPassword } from '../helpers/encrypt';
 import Model from '../models';
 import { errorResponse } from '../helpers/response';
 
@@ -42,6 +42,45 @@ export default class UserController {
           email: newUser.email,
           username: newUser.username,
           role: newUser.role
+        },
+        token
+      });
+    } catch (error) {
+      return errorResponse(res, 500, error.message);
+    }
+  }
+
+  static async login(req, res) {
+    try {
+      const {
+        email, password
+      } = req.body;
+
+      const user = await User.findOne({
+        where: { email: email.toLowerCase() }
+      });
+
+      if (!user) {
+        return errorResponse(res, 401, 'Invalid email/password');
+      }
+
+      const confirmPassword = verifyPassword(password, user.password);
+
+      if (!confirmPassword) {
+        return errorResponse(res, 401, 'Invalid email/password');
+      }
+
+      const token = jwt.sign(
+        { id: user.id, role: user.role }, process.env.SECRET, { expiresIn: '24h' }
+      );
+      return res.status(200).json({
+        status: 'success',
+        message: 'Login was successful',
+        user: {
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          role: user.role
         },
         token
       });
