@@ -1,4 +1,6 @@
 import express from 'express';
+import UserController from '../controllers/UserController';
+import { validateRegister } from '../middlewares/validation';
 
 const router = express.Router();
 
@@ -8,6 +10,9 @@ router.get('/', (req, res, next) => {
     message: 'Welcome to komicle app'
   });
 });
+
+router.post('/register', validateRegister, UserController.register);
+
 
 router.all('*', (req, res) => {
   res.status(404).json({

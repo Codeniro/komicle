@@ -4,11 +4,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: {
-          msg: 'must be a valid email'
-        }
-      }
     },
     username: {
       type: DataTypes.STRING,
@@ -16,13 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        min: {
-          args: 8,
-          msg: 'must be more than 8 characters'
-        }
-      }
+      allowNull: false
     },
     role: {
       type: DataTypes.STRING,
