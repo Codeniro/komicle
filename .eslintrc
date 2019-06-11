@@ -14,7 +14,8 @@
     "comma-dangle": 0,
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "import/no-dynamic-require": 0
+    "import/no-dynamic-require": 0,
+    "import/prefer-default-export": 0
   },
-  "parserOptions": {"ecmaVersion": 6}
+  "parserOptions": {"ecmaVersion": 2017}
 }
